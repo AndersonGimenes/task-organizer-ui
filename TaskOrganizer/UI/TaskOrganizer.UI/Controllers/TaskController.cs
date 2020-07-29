@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TaskOrganizer.UI.Models;
 
 namespace TaskOrganizer.UI.Controllers
 {
@@ -15,6 +16,12 @@ namespace TaskOrganizer.UI.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(TaskModel taskModel)
+        {
+            return View(taskModel);
         }
     }
 }
