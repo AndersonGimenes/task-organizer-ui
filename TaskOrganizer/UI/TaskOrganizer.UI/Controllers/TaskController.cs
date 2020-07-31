@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TaskOrganizer.UI.Mock;
 using TaskOrganizer.UI.Models;
 
 namespace TaskOrganizer.UI.Controllers
@@ -13,15 +16,31 @@ namespace TaskOrganizer.UI.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult GetAllTasks()
         {
-            return View();
+            // test mock
+            var tasks = TaskMock.GetTaskMock();
+            
+            return View(tasks);
         }
 
         [HttpPost]
-        public IActionResult Index(TaskModel taskModel)
+        public void CreateTask(TaskModel taskModel)
         {
-            return View(taskModel);
+            // here call service(proxy) to chance status task
+            
+            RedirectToAction("GetAllTasks");
+        }
+
+        private List<TaskModel> test(TaskModel task)
+        {
+            task.CreateDate = DateTime.Now;
+            task.StartDate = DateTime.Now;
+            task.Progress = "InProgress";
+
+            return new List<TaskModel>{
+                task
+            };
         }
     }
 }
