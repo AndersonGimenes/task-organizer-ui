@@ -8,12 +8,16 @@
     }   
 
     $.ajax({
-        url : "https://localhost:5001/Task/CreateTask",
+        url : "https://localhost:6001/Task/CreateTask",
         type : 'post',
-        data : data
-    })
-    .done(function(){
-        alert("Success")
+        data : data,
+        success: function(){
+            $('#exampleModal').modal('hide')
+            location.reload();
+        }, 
+        error: function(){
+            console.log('Application error!')
+        }
     });
 }
 

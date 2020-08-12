@@ -1,8 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TaskOrganizer.UI.Mapping;
+using TaskOrganizer.UI.Proxy;
 
 namespace TaskOrganizer.UI
 {
@@ -19,6 +22,19 @@ namespace TaskOrganizer.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            // DI    
+            services.AddTransient<ITaskService, TaskService>();
+            services.AddTransient<ITaskProxy, TaskProxy>();
+
+            //Mapper configuration
+            var cfg = new MapperConfiguration(x => 
+            { 
+                x.AddProfile(new MappingProfile());
+            });
+            var mapper = cfg.CreateMapper();
+            services.AddSingleton(mapper);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,7 +4,6 @@
         var doneList = (List<TaskModel>)ViewData["DoneList"];
         if(doneList != null && doneList.Count > 0)
         { 
-            var auxiliaryNumber = 1;
             foreach(var task in doneList)
             {
                 <input type="hidden" name="TaskNumber" />
@@ -28,7 +27,6 @@
                     </div>
                 </div>
 
-                auxiliaryNumber++;
             }
         }    
     }
